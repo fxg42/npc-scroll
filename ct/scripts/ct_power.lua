@@ -46,8 +46,8 @@ function splitAttackLine(attackLine, startPos, endPos)
 end
 
 function incrementDamageBy(notches, attackLine)
-    return attackLine:gsub("DMG: (-?%d+)d(%d+)", function(qty, die)
-        return "DMG: " .. (tonumber(qty) + notches) .. "d" .. die;
+    return attackLine:gsub("(-?%d+)d(%d+)", function(qty, die)
+        return "" .. (tonumber(qty) + notches) .. "d" .. die;
     end);
 end
 
@@ -55,6 +55,6 @@ function incrementAttackBy(notches, attackLine)
     return attackLine:gsub("ATK: ([-+]%d+)", function(bonus)
         local newBonus = tonumber(bonus) + notches;
         local sign = newBonus >= 0 and "+" or ""; 
-        return "ATK: " .. sign .. newBonus;
+        return sign .. newBonus;
     end);
 end
