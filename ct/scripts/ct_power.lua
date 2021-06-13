@@ -52,7 +52,7 @@ function incrementDamageBy(notches, attackLine)
 end
 
 function incrementAttackBy(notches, attackLine)
-    return attackLine:gsub("ATK: ([-+]%d+)", function(bonus)
+    return attackLine:gsub("([-+]%d+)", function(bonus)
         local newBonus = tonumber(bonus) + notches;
         local sign = newBonus >= 0 and "+" or ""; 
         return sign .. newBonus;
