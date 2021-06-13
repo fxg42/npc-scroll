@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root version="3.0">
+    <properties>
+        <name>5E Extension - NPC Scroll</name>
+        <version>0.1</version>
+        <author>fxg42</author>
+        <description>Increment and decrement NPC combat tracker entry attack bonuses and damage die with the scroll wheel.</description>
+        <loadorder>100</loadorder>
+    </properties>
+
+    <announcement text="NPC Scroll v0.1"/>
+
+    <base>
+        <includefile source="ct/ct_host.xml" />
+    </base>
+</root>
