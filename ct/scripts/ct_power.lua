@@ -4,7 +4,7 @@ function onWheel(notches, x, y)
 
     if abilityType == "damage" then
         setValue(incrementSectionBy(notches, attackLine, startPos, endPos, incrementDamageBy));
-        return true;      
+        return true;
     elseif abilityType == "attack" then
         setValue(incrementSectionBy(notches, attackLine, startPos, endPos, incrementAttackBy));
         return true;
@@ -17,17 +17,17 @@ end
 
 function getHoveredAbilityTypeAt(x, y, attackLine)
     local nMouseIndex = getIndexAt(x, y);
-	local rPower = CombatManager2.parseAttackLine(attackLine);
+    local rPower = CombatManager2.parseAttackLine(attackLine);
     
     local retval = nil;
 
-	if rPower then
-		for hoverAbility, v in pairs(rPower.aAbilities) do
-			if (v.nStart <= nMouseIndex) and (nMouseIndex < v.nEnd) then
+    if rPower then
+        for hoverAbility, v in pairs(rPower.aAbilities) do
+            if (v.nStart <= nMouseIndex) and (nMouseIndex < v.nEnd) then
                 return rPower.aAbilities[hoverAbility].sType, v.nStart, v.nEnd;
-			end
-		end
-	end
+            end
+        end
+    end
 
     return retval;
 end
