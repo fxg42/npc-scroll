@@ -1,7 +1,7 @@
 # NPC Scroll
 
 Fantasy Grounds extension for the 5E ruleset that enables using the mouse wheel
-to change the some offensive abilities in the combat tracker.
+to change the some "offense" abilities in the combat tracker.
 
 ### How to
 
