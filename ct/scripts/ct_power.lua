@@ -1,6 +1,6 @@
 function onWheel(notches, x, y)
     local attackLine = getValue();
-    local abilityType, startPos, endPos = getHoveredAbilityTypeAt(x, y, attackLine);
+    local abilityType, startPos, endPos = getHoveredAbilityAt(x, y, attackLine);
 
     if abilityType == "damage" then
         setValue(incrementSectionBy(notches, attackLine, startPos, endPos, incrementDamageBy));
@@ -15,11 +15,9 @@ end
 
 -- Partially copied from 5E.pak/ct/scripts/ct_power.lua
 
-function getHoveredAbilityTypeAt(x, y, attackLine)
+function getHoveredAbilityAt(x, y, attackLine)
     local nMouseIndex = getIndexAt(x, y);
     local rPower = CombatManager2.parseAttackLine(attackLine);
-    
-    local retval = nil;
 
     if rPower then
         for hoverAbility, v in pairs(rPower.aAbilities) do
@@ -29,13 +27,12 @@ function getHoveredAbilityTypeAt(x, y, attackLine)
         end
     end
 
-    return retval;
+    return nil;
 end
 
 function incrementSectionBy(notches, attackLine, startPos, endPos, transformFn)
     local prefix, middle, suffix = splitAttackLine(attackLine, startPos, endPos);
-    local updated = transformFn(notches, middle);
-    return prefix .. updated .. suffix;
+    return prefix .. transformFn(notches, middle) .. suffix;
 end
 
 function splitAttackLine(attackLine, startPos, endPos)
