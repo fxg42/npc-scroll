@@ -36,7 +36,7 @@ function incrementSectionBy(notches, attackLine, startPos, endPos, transformFn)
 end
 
 function splitAttackLine(attackLine, startPos, endPos)
-    local prefix = attackLine:sub(0, startPos-1);
+    local prefix = attackLine:sub(1, startPos-1);
     local middle = attackLine:sub(startPos, endPos);
     local suffix = attackLine:sub(endPos+1);
     return prefix, middle, suffix;
