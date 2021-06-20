@@ -6,8 +6,8 @@ function onWheel(notches, x, y)
     local attackLine = getValue();
     local abilityType, startPos, endPos = getHoveredAbilityAt(x, y, attackLine);
 
-    if abilityType == "damage" then
-        setValue(incrementSectionBy(notches, attackLine, startPos, endPos, incrementDamageBy));
+    if abilityType == "damage" or abilityType == "heal" or abilityType == "effect" then
+        setValue(incrementSectionBy(notches, attackLine, startPos, endPos, incrementDiceExpressions));
         return true;
     elseif abilityType == "attack" then
         setValue(incrementSectionBy(notches, attackLine, startPos, endPos, incrementAttackBy));
@@ -46,9 +46,9 @@ function splitAttackLine(attackLine, startPos, endPos)
     return prefix, middle, suffix;
 end
 
-function incrementDamageBy(notches, attackLine)
+function incrementDiceExpressions(notches, attackLine)
     return attackLine:gsub("(-?%d+)d(%d+)", function(qty, die)
-        return "" .. (tonumber(qty) + notches) .. "d" .. die;
+        return "" .. math.max(1, (tonumber(qty) + notches)) .. "d" .. die;
     end);
 end
 
