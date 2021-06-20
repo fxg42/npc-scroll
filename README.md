@@ -5,9 +5,16 @@ to change the some "offense" abilities in the combat tracker.
 
 ### How to
 
-On the combat tracker, hover an NPC's `ATK` or `DMG` ability. Use the mouse
-wheel to increment or decrement either the attack bonus or the number of damage
-dice.
+On the combat tracker, while holding Ctrl key and hovering an Offence ability, use the mouse
+wheel to increment or decrement either:
+- the attack bonus;
+- the number of damage or healing dice;
+- the save DC;
+- the recharge dice.
+
+Hold the Alt key and use the mouse wheel to cycle through:
+- the damage and healing die type (d4, d6, d8, d10 or d12);
+- the saving throw ability (str, dex, con, int, wis, cha).
 
 ### Inspiration
 
