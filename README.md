@@ -14,7 +14,7 @@ wheel to increment or decrement either:
 
 Hold the Alt key and use the mouse wheel to cycle through:
 - the damage and healing die type (d4, d6, d8, d10 or d12);
-- the saving throw ability (str, dex, con, int, wis, cha).
+- the saving throw's ability (str, dex, con, int, wis, cha).
 
 ### Inspiration
 

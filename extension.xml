@@ -9,7 +9,7 @@
         <loadorder>100</loadorder>
     </properties>
 
-    <announcement text="NPC Scroll v0.2"/>
+    <announcement text="NPC Scroll v0.3"/>
 
     <base>
         <includefile source="ct/ct_host.xml" />
