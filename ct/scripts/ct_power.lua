@@ -1,4 +1,8 @@
 function onWheel(notches, x, y)
+    if not Input.isControlPressed() then
+        return false; -- propagate event
+    end
+
     local attackLine = getValue();
     local abilityType, startPos, endPos = getHoveredAbilityAt(x, y, attackLine);
 
