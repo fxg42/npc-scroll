@@ -17,8 +17,9 @@ function onWheel(notches, x, y)
     end
 end
 
+--
 -- Partially copied from 5E.pak/ct/scripts/ct_power.lua
-
+--
 function getHoveredAbilityAt(x, y, attackLine)
     local nMouseIndex = getIndexAt(x, y);
     local rPower = CombatManager2.parseAttackLine(attackLine);
@@ -40,9 +41,9 @@ function incrementSectionBy(notches, attackLine, startPos, endPos, transformFn)
 end
 
 function splitAttackLine(attackLine, startPos, endPos)
-    local prefix = attackLine:sub(0, startPos-1);
+    local prefix = attackLine:sub(0, startPos - 1);
     local middle = attackLine:sub(startPos, endPos);
-    local suffix = attackLine:sub(endPos+1);
+    local suffix = attackLine:sub(endPos + 1);
     return prefix, middle, suffix;
 end
 
@@ -55,7 +56,7 @@ end
 function incrementAttackBy(notches, attackLine)
     return attackLine:gsub("([-+]%d+)", function(bonus)
         local newBonus = tonumber(bonus) + notches;
-        local sign = newBonus >= 0 and "+" or ""; 
+        local sign = newBonus >= 0 and "+" or "";
         return sign .. newBonus;
     end);
 end
