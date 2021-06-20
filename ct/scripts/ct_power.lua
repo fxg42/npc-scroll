@@ -12,6 +12,12 @@ function onWheel(notches, x, y)
     elseif abilityType == "attack" then
         setValue(incrementSectionBy(notches, attackLine, startPos, endPos, incrementAttackBy));
         return true;
+    elseif abilityType == "powersave" then
+        setValue(incrementSectionBy(notches, attackLine, startPos, endPos, incrementSaveBy));
+        return true;
+    elseif abilityType == "usage" then
+        setValue(incrementSectionBy(notches, attackLine, startPos, endPos, incrementNumberInRangeBy(1, 6)));
+        return true;
     else
         return false; -- propagate event
     end
@@ -59,4 +65,18 @@ function incrementAttackBy(notches, attackLine)
         local sign = newBonus >= 0 and "+" or "";
         return sign .. newBonus;
     end);
+end
+
+function incrementSaveBy(notches, attackLine)
+    return attackLine:gsub("(%d+)", function(dc)
+        return "" .. math.max(0, (tonumber(dc) + notches));
+    end);
+end
+
+function incrementNumberInRangeBy(lowerBound, upperBound)
+    return function(notches, attackLine)
+        return attackLine:gsub("(%d+)", function(n)
+            return "" .. math.max(lowerBound, math.min(upperBound, (tonumber(n) + notches)));
+        end);
+    end
 end
