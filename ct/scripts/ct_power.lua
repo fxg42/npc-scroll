@@ -1,26 +1,36 @@
 function onWheel(notches, x, y)
-    if not Input.isControlPressed() then
-        return false; -- propagate event
-    end
-
     local attackLine = getValue();
     local abilityType, startPos, endPos = getHoveredAbilityAt(x, y, attackLine);
 
-    if abilityType == "damage" or abilityType == "heal" or abilityType == "effect" then
-        setValue(incrementSectionBy(notches, attackLine, startPos, endPos, incrementDiceExpressions));
-        return true;
-    elseif abilityType == "attack" then
-        setValue(incrementSectionBy(notches, attackLine, startPos, endPos, incrementAttackBy));
-        return true;
-    elseif abilityType == "powersave" then
-        setValue(incrementSectionBy(notches, attackLine, startPos, endPos, incrementSaveBy));
-        return true;
-    elseif abilityType == "usage" then
-        setValue(incrementSectionBy(notches, attackLine, startPos, endPos, incrementNumberInRangeBy(1, 6)));
-        return true;
-    else
+    if not abilityType then
         return false; -- propagate event
     end
+
+    local update = targetSection(notches, attackLine, startPos, endPos);
+
+    if Input.isControlPressed() then
+        if abilityType == "damage" or abilityType == "heal" or abilityType == "effect" then
+            setValue(update(diceQty));
+        elseif abilityType == "attack" then
+            setValue(update(attackBonus));
+        elseif abilityType == "powersave" then
+            setValue(update(saveDC));
+        elseif abilityType == "usage" then
+            setValue(update(numberInRangeBy(1, 6)));
+        end
+        return true;
+    end
+
+    if Input.isAltPressed() then
+        if abilityType == "damage" or abilityType == "heal" or abilityType == "effect" then
+            setValue(update(die({"4", "6", "8", "10", "12"})));
+        elseif abilityType == "powersave" then
+            setValue(update(stat({"strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"})));
+        end
+        return true;
+    end
+
+    return false; -- propagate event
 end
 
 --
@@ -41,25 +51,36 @@ function getHoveredAbilityAt(x, y, attackLine)
     return nil;
 end
 
-function incrementSectionBy(notches, attackLine, startPos, endPos, transformFn)
-    local prefix, middle, suffix = splitAttackLine(attackLine, startPos, endPos);
-    return prefix .. transformFn(notches, middle) .. suffix;
+--
+-- Attack line update processing
+--
+
+function targetSection(notches, attackLine, startPos, endPos)
+    local prefix, middle, suffix = splitLine(attackLine, startPos, endPos);
+    return function(transformFn)
+        return prefix .. transformFn(notches, middle) .. suffix;
+    end
 end
 
-function splitAttackLine(attackLine, startPos, endPos)
-    local prefix = attackLine:sub(0, startPos - 1);
-    local middle = attackLine:sub(startPos, endPos);
-    local suffix = attackLine:sub(endPos + 1);
-    return prefix, middle, suffix;
-end
+--
+-- Attack line updaters
+--
 
-function incrementDiceExpressions(notches, attackLine)
+function diceQty(notches, attackLine)
     return attackLine:gsub("(-?%d+)d(%d+)", function(qty, die)
         return "" .. math.max(1, (tonumber(qty) + notches)) .. "d" .. die;
     end);
 end
 
-function incrementAttackBy(notches, attackLine)
+function die(diceTypes)
+    return function(notches, attackLine)
+        return attackLine:gsub("(-?%d+)d(%d+)", function(qty, die)
+            return "" .. qty .. "d" .. cycleValues(diceTypes, die, notches);
+        end);
+    end
+end
+
+function attackBonus(notches, attackLine)
     return attackLine:gsub("([-+]%d+)", function(bonus)
         local newBonus = tonumber(bonus) + notches;
         local sign = newBonus >= 0 and "+" or "";
@@ -67,16 +88,54 @@ function incrementAttackBy(notches, attackLine)
     end);
 end
 
-function incrementSaveBy(notches, attackLine)
+function saveDC(notches, attackLine)
     return attackLine:gsub("(%d+)", function(dc)
         return "" .. math.max(0, (tonumber(dc) + notches));
     end);
 end
 
-function incrementNumberInRangeBy(lowerBound, upperBound)
+function numberInRangeBy(lowerBound, upperBound)
     return function(notches, attackLine)
         return attackLine:gsub("(%d+)", function(n)
             return "" .. math.max(lowerBound, math.min(upperBound, (tonumber(n) + notches)));
         end);
     end
+end
+
+function stat(statTypes)
+    return function(notches, attackLine)
+        Debug.console(statTypes, notches, attackLine);
+        return attackLine:gsub("(SAVEVS: )(%a+)(.+)", function(prefix, stat, suffix)
+            return prefix .. cycleValues(statTypes, stat, notches) .. suffix;
+        end);
+    end
+end
+
+--
+-- Helpers
+--
+
+function splitLine(line, startPos, endPos)
+    local prefix = line:sub(0, startPos - 1);
+    local middle = line:sub(startPos, endPos);
+    local suffix = line:sub(endPos + 1);
+    return prefix, middle, suffix;
+end
+
+function cycleValues(list, candidate, offset)
+    for idx, item in ipairs(list) do
+        if candidate == item then
+            local newIdx = idx + offset;
+            if newIdx < 1 then
+                newIdx = math.fmod(math.abs(newIdx), #list);
+                return list[#list - newIdx];
+            elseif newIdx > #list then
+                newIdx = math.fmod(newIdx, #list);
+                return list[newIdx];
+            else
+                return list[newIdx];
+            end
+        end
+    end
+    return candidate;
 end
