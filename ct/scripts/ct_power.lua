@@ -93,7 +93,7 @@ function saveDC(notches, attackLine)
 end
 
 --
--- Higher-level attack line updaters
+-- Higher-order attack line updaters
 --
 
 function numberInRange(lowerBound, upperBound)
