@@ -104,7 +104,6 @@ end
 
 function stat(statTypes)
     return function(notches, attackLine)
-        Debug.console(statTypes, notches, attackLine);
         return attackLine:gsub("(SAVEVS: )(%a+)(.+)", function(prefix, stat, suffix)
             return prefix .. cycleValues(statTypes, stat, notches) .. suffix;
         end);

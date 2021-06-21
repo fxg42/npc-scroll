@@ -5,7 +5,7 @@ to change the some "offense" abilities in the combat tracker.
 
 ### How to
 
-On the combat tracker, while holding Ctrl key and hovering an Offence ability, use the mouse
+On the combat tracker, while holding the Ctrl key and hovering an Offence ability, use the mouse
 wheel to increment or decrement either:
 - the attack bonus;
 - the number of damage or healing dice;
