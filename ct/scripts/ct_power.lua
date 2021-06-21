@@ -19,7 +19,7 @@ end
 
 function onWheelControl(abilityType, update)
   if abilityType == "damage" or abilityType == "heal" or abilityType == "effect" then
-    setValue(update(diceQty));
+    setValue(update(nbDice));
   elseif abilityType == "attack" then
     setValue(update(attackBonus));
   elseif abilityType == "powersave" then
@@ -72,7 +72,7 @@ end
 -- Attack line updaters
 --
 
-function diceQty(notches, attackLine)
+function nbDice(notches, attackLine)
   return attackLine:gsub("(-?%d+)d(%d+)", function(qty, die)
     return "" .. math.max(1, (tonumber(qty) + notches)) .. "d" .. die;
   end);
