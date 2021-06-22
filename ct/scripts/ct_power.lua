@@ -1,5 +1,5 @@
 function onWheel(notches, x, y)
-  if not Input.isControlPressed() or not Input.isAltPressed() then return false end
+  if not Input.isControlPressed() and not Input.isAltPressed() then return false end
 
   local attackLine = getValue();
   local abilityType, startPos, endPos = getHoveredAbilityAt(x, y, attackLine);
