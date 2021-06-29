@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <root version="3.0">
-    <properties>
-        <name>5E Extension - NPC Scroll</name>
-        <version>0.3</version>
-        <author>fxg42</author>
-        <description>Increment and decrement NPC combat tracker entry attack bonuses and damage die with the scroll wheel.</description>
-        <loadorder>100</loadorder>
-    </properties>
+  <properties>
+    <name>CT Scroll 5e Extension</name>
+    <version>0.3.1</version>
+    <author>fxg42</author>
+    <description>Increment and decrement NPC combat tracker entry attack bonuses and damage die with the scroll wheel.</description>
+    <loadorder>100</loadorder>
+  </properties>
 
-    <announcement text="CT Scroll v0.3.1" font="emotefont" icon="raven"/>
+  <announcement text="CT Scroll v0.3.1" font="emotefont" icon="raven"/>
 
-    <base>
-        <icon name="raven" file="raven-circ-30x30.png"/>
-        <includefile source="ct/ct_host.xml" />
-    </base>
+  <base>
+    <icon name="raven" file="raven-circ-30x30.png"/>
+    <includefile source="ct/ct_host.xml" />
+  </base>
 </root>

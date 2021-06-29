@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <root>
-    <windowclass name="ct_power" merge="join">
-        <sheetdata>
-            <string_textlistitem name="value">
-                <script file="ct/scripts/ct_power.lua"/>
-            </string_textlistitem>
-        </sheetdata>
-    </windowclass>
+  <windowclass name="ct_power" merge="join">
+    <sheetdata>
+      <string_textlistitem name="value">
+        <script file="ct/scripts/ct_power.lua"/>
+      </string_textlistitem>
+    </sheetdata>
+  </windowclass>
 </root>
