@@ -14,5 +14,6 @@
   <base>
     <icon name="raven" file="raven-circ-30x30.png"/>
     <includefile source="ct/ct_host.xml" />
+    <script name="CombatManager__proxy" file="scripts/manager_combat2.lua" />
   </base>
 </root>
