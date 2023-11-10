@@ -3,13 +3,13 @@
 <root version="3.0">
   <properties>
     <name>CT Scroll 5e Extension</name>
-    <version>0.4</version>
+    <version>0.4.1</version>
     <author>fxg42</author>
     <description>Increment and decrement NPC combat tracker entry attack bonuses and damage die with the scroll wheel.</description>
     <loadorder>100</loadorder>
   </properties>
 
-  <announcement text="CT Scroll v0.4" font="emotefont" icon="raven"/>
+  <announcement text="CT Scroll v0.4.1" font="emotefont" icon="raven"/>
 
   <base>
     <icon name="raven" file="raven-circ-30x30.png"/>

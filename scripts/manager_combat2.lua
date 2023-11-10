@@ -1,5 +1,5 @@
 function onInit()
-  CombatManager.addNPC = proxy(CombatManager.addNPC, upcastCantrips);
+  CombatRecordManager.setRecordTypePostAddCallback("npc", proxy(CombatManager2.onNPCPostAdd, upcastCantrips));
 end
 
 --
@@ -9,7 +9,7 @@ end
 function proxy(subjectFn, afterAdvice)
   return function(...)
     local returnValue = subjectFn(...);
-    afterAdvice(returnValue);
+    afterAdvice(...);
     return returnValue;
   end
 end
@@ -19,7 +19,8 @@ end
 -- cantrips while incrementing the number of DMG or HEAL dice.
 --
 
-function upcastCantrips(nodeEntry)
+function upcastCantrips(tCustom)
+  local nodeEntry = tCustom.nodeCT;
   local notches = getNbNotches(getSpellcasterLevel(nodeEntry));
   if notches < 1 then return end
   
